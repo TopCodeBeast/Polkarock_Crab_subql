@@ -1,0 +1,436 @@
+specVersion: 0.0.1
+description: None
+repository: ''
+schema: ./schema.graphql
+network:
+  endpoint: wss://crab-rpc.darwinia.network/
+  dictionary: https://api.subquery.network/sq/wuminzhe/crab
+  types:
+    AccountData:
+      feeFrozen: Balance
+      free: Balance
+      reserved: Balance
+      freeKton: Balance
+      reservedKton: Balance
+      miscFrozen: Balance
+    AccountInfo:
+      nonce: Index
+      refcount: RefCount
+      data: AccountData
+    AccountSigner: MultiSigner
+    Address: MultiAddress
+    AddressT: '[u8; 20; AddressT]'
+    AncestryProof: ()
+    Announcement: ProxyAnnouncement
+    AuthorityId: '[u8;32]'
+    AuthoritySet:
+      authorities: AuthorityList
+      set_id: SetId
+    AuthoritySignature: '[u8;64]'
+    BSCHeader:
+      parentHash: H256
+      uncleHash: H256
+      coinbase: EthereumAddress
+      stateRoot: H256
+      transactionsRoot: H256
+      receiptsRoot: H256
+      logBloom: Bloom
+      difficulty: U256
+      number: u64
+      gasLimit: U256
+      gasUsed: U256
+      timestamp: u64
+      extraData: Bytes
+      mixDigest: H256
+      nonce: Bytes
+    BabeEpochConfiguration: 'Null'
+    BalanceInfo: '{}'
+    BalanceLock:
+      id: LockIdentifier
+      lockFor: LockFor
+      reasons: Reasons
+    BlockNumberFor: BlockNumber
+    Bloom: '[u8; 256; Bloom]'
+    BridgedBlockHash: MillauBlockHash
+    BridgedBlockNumber: MillauBlockNumber
+    BridgedHeader: MillauHeader
+    BridgedOpaqueCall: Vec<u8>
+    CallOrigin:
+      _enum:
+        SourceRoot: ()
+        TargetAccount: (SourceAccountId, MultiSigner, MultiSignature)
+        SourceAccount: SourceAccountId
+    ChainId: Id
+    ChainProperties:
+      ss58Format: Option<u8>
+      tokenDecimals: Option<Vec<u32>>
+      tokenSymbol: Option<Vec<Text>>
+    Commit:
+      target_hash: BridgedBlockHash
+      target_number: BridgedBlockNumber
+      precommits: Vec<SignedPrecommit>
+    Common:
+      amount: Balance
+    CompactAssignments: CompactAssignmentsWith16
+    DepositId: U256
+    EcdsaAddress: EthereumAddress
+    EcdsaMessage: H256
+    EcdsaSignature: '[u8; 65; EcdsaSignature]'
+    ElectionCompute:
+      _enum:
+        - OnChain
+        - Signed
+        - Authority
+    ElectionResultT:
+      electedStashes: Vec<AccountId>
+      exposures: Vec<(AccountId, ExposureT)>
+      compute: ElectionCompute
+    EthashProof:
+      dagNodes: (H512, H512)
+      proof: Vec<H128>
+    EthereumAddress: H160
+    EthereumBlockNumber: u64
+    EthereumHeader:
+      parentHash: H256
+      timestamp: u64
+      number: EthereumBlockNumber
+      author: EthereumAddress
+      transactionsRoot: H256
+      unclesHash: H256
+      extraData: Bytes
+      stateRoot: H256
+      receiptsRoot: H256
+      logBloom: Bloom
+      gasUsed: U256
+      gasLimit: U256
+      difficulty: U256
+      seal: Vec<Bytes>
+      baseFeePerGas: Option<U256>
+      blockHash: Option<H256>
+    EthereumNetwork:
+      _enum:
+        Mainnet: 'Null'
+        Ropsten: 'Null'
+    EthereumNetworkType:
+      _enum:
+        Mainnet: 'Null'
+        Ropsten: 'Null'
+    EthereumReceipt:
+      gasUsed: U256
+      logBloom: Bloom
+      logs: Vec<LogEntry>
+      outcome: TransactionOutcome
+    EthereumReceiptProof:
+      index: u64
+      proof: Bytes
+      headerHash: H256
+    EthereumReceiptProofThing: (EthereumHeader, EthereumReceiptProof, MMRProof)
+    EthereumRelayHeaderParcel:
+      header: EthereumHeader
+      parentMmrRoot: H256
+    EthereumRelayProofs:
+      ethashProof: Vec<EthashProof>
+      mmrProof: Vec<H256>
+    EthereumTransactionIndex: (H256, u64)
+    Exposure: ExposureT
+    ExposureT:
+      ownRingBalance: Compact<Balance>
+      ownKtonBalance: Compact<Balance>
+      ownPower: Power
+      totalPower: Power
+      others: Vec<IndividualExposure>
+    Fee: MillauBalance
+    GrandpaJustification:
+      round: u64
+      commit: Commit
+      votes_ancestries: Vec<BridgedHeader>
+    H128: '[u8; 16; H128]'
+    Id: '[u8; 4]'
+    ImportedHeader:
+      header: BridgedHeader
+      requires_justification: bool
+      is_finalized: bool
+      signal_hash: Option<BridgedBlockHash>
+    InboundLaneData:
+      relayers: Vec<(MessageNonce, MessageNonce, RelayerId)>
+      last_confirmed_nonce: MessageNonce
+    InboundRelayer: AccountId
+    IndividualExposure:
+      who: AccountId
+      ringBalance: Compact<Balance>
+      ktonBalance: Compact<Balance>
+      power: Power
+    InitializationData:
+      authority_list: AuthorityList
+      header: Header
+      is_halted: bool
+      set_id: SetId
+    KtonBalance: Balance
+    LaneId: Id
+    LockFor:
+      _enum:
+        Common: Common
+        Staking: StakingLock
+    LogEntry: '{}'
+    LookupSource: MultiAddress
+    MMRProof:
+      memberLeafIndex: u64
+      lastLeafIndex: u64
+      proof: Vec<H256>
+    MMRProofResult:
+      mmrSize: u64
+      proof: Text
+    MMRRoot: Hash
+    MappedRing: u128
+    MerkleMountainRangeRootLog:
+      prefix: '[u8; 4; Prefix]'
+      ParentMmrRoot: Hash
+    MessageData:
+      payload: MessagePayload
+      fee: Fee
+    MessageFeeData:
+      lane_id: LaneId
+      payload: OutboundPayload
+    MessageId: (Id, MessageNonce)
+    MessageKey:
+      laneId: LaneId
+      nonce: MessageNonce
+    MessageNonce: u64
+    MessagePayload: Vec<u8>
+    MessagesDeliveryProofOf:
+      bridged_header_hash: BridgedBlockHash
+      storage_proof: Vec<StorageProofItem>
+      lane: LaneId
+    MessagesProofOf:
+      bridged_header_hash: BridgedBlockHash
+      storage_proof: Vec<StorageProofItem>
+      lane: LaneId
+      nonces_start: MessageNonce
+      nonces_end: MessageNonce
+    MillauBalance: u64
+    MillauBlockHash: H512
+    MillauBlockNumber: u64
+    MillauDigest:
+      logs: Vec<MillauDigestItem>
+    MillauDigestItem:
+      _enum:
+        Other: Vec<u8>
+        AuthoritiesChange: Vec<AuthorityId>
+        ChangesTrieRoot: MillauBlockHash
+        SealV0: SealV0
+        Consensus: Consensus
+        Seal: Seal
+        PreRuntime: PreRuntime
+    MillauHeader:
+      parent_Hash: MillauBlockHash
+      number: Compact<MillauBlockNumber>
+      state_root: MillauBlockHash
+      extrinsics_root: MillauBlockHash
+      digest: MillauDigest
+    MmrNodesPruningConfiguration:
+      step: NodeIndex
+      progress: NodeIndex
+      lastPosition: NodeIndex
+    MmrRootToSign:
+      mmrRoot: Hash
+      signatures: Vec<(EthereumAddress, EcdsaSignature)>
+    MultiAddress: GenericMultiAddress
+    MultiSigner:
+      _enum:
+        Ed25519: H256
+        Sr25519: H256
+        Ecdsa: '[u8;33]'
+    NodeIndex: u64
+    OpCode: '[u8; 4; OpCode]'
+    OtherAddress:
+      _enum:
+        Eth: EthereumAddress
+        Tron: TronAddress
+    OtherSignature:
+      _enum:
+        Eth: EcdsaSignature
+        Tron: EcdsaSignature
+    OutboundLaneData:
+      latest_generated_nonce: MessageNonce
+      latest_received_nonce: MessageNonce
+      oldest_unpruned_nonce: MessageNonce
+    OutboundMessageFee: Fee
+    OutboundPayload:
+      spec_version: SpecVersion
+      weight: Weight
+      origin: CallOrigin
+      call: BridgedOpaqueCall
+    PalletId: LockIdentifier
+    Parameter:
+      _enum:
+        MillauToRialtoConversionRate: u128
+    Power: u32
+    PowerOf:
+      power: Power
+    Precommit:
+      target_hash: BridgedBlockHash
+      target_number: BridgedBlockNumber
+    ProxyAnnouncement:
+      real: AccountId
+      callHash: Hash
+      height: BlockNumber
+    ProxyDefinition:
+      delegate: AccountId
+      proxyType: ProxyType
+      delay: BlockNumber
+    ProxyType:
+      _enum:
+        Any: 'Null'
+        NonTransfer: 'Null'
+        Governance: 'Null'
+        Staking: 'Null'
+        IdentityJudgement: 'Null'
+        EthereumBridge: 'Null'
+    RKT:
+      r: Balance
+      k: Balance
+    RawSolution: RawSolutionWith16
+    Reasons:
+      _enum:
+        - Fee
+        - Misc
+        - All
+    RedeemFor:
+      _enum:
+        Token: 'Null'
+        Deposit: 'Null'
+    RelayAffirmationId:
+      relayHeaderId: EthereumBlockNumber
+      round: u32
+      index: u32
+    RelayAffirmationT:
+      relayer: AccountId
+      relayHeaderParcels: EthereumRelayHeaderParcel
+      bond: Balance
+      maybeExtendedRelayAffirmationId: Option<RelayAffirmationId>
+      verified: bool
+    RelayAuthorityMessage: EcdsaMessage
+    RelayAuthoritySignature: EcdsaSignature
+    RelayAuthoritySigner: EcdsaAddress
+    RelayAuthorityT:
+      accountId: AccountId
+      signer: EthereumAddress
+      stake: Balance
+      term: BlockNumber
+    RelayHeaderId: EthereumBlockNumber
+    RelayHeaderParcel: EthereumRelayHeaderParcel
+    RelayProofs: EthereumRelayProofs
+    RelayVotingState:
+      ayes: Vec<AccountId>
+      nays: Vec<AccountId>
+    RelayerId: AccountId
+    RingBalance: Balance
+    ScheduledAuthoritiesChangeT:
+      nextAuthorities: Vec<RelayAuthorityT>
+      deadline: BlockNumber
+    SignedPrecommit:
+      precommit: Precommit
+      signature: AuthoritySignature
+      id: AuthorityId
+    Signer: EthereumAddress
+    SourceAccountId: AccountId
+    SpanRecord:
+      slashed: RKT
+      paidOut: RKT
+    SpecVersion: u32
+    StakingBalanceT:
+      _enum:
+        RingBalance: Balance
+        KtonBalance: Balance
+    StakingLedgerT:
+      stash: AccountId
+      activeRing: Compact<Balance>
+      activeDepositRing: Compact<Balance>
+      activeKton: Compact<Balance>
+      depositItems: Vec<TimeDepositItem>
+      ringStakingLock: StakingLock
+      ktonStakingLock: StakingLock
+      claimedRewards: Vec<EraIndex>
+    StakingLock:
+      stakingAmount: Balance
+      unbondings: Vec<Unbonding>
+    Status:
+      _enum:
+        Free: 'Null'
+        Reserved: 'Null'
+    StorageProofItem: Vec<u8>
+    Term: BlockNumber
+    TimeDepositItem:
+      value: Compact<Balance>
+      startTime: Compact<TsInMs>
+      expireTime: Compact<TsInMs>
+    TransactionOutcome: '{}'
+    TreasuryProposal:
+      proposer: AccountId
+      beneficiary: AccountId
+      ringValue: Balance
+      ringBond: Balance
+      ktonValue: Balance
+      ktonBond: Balance
+    TronAddress: EthereumAddress
+    TsInMs: u64
+    UnappliedSlash:
+      validator: AccountId
+      own: RKT
+      others: Vec<(AccountId, RKT)>
+      reporters: Vec<AccountId>
+      payout: RKT
+    Unbonding:
+      amount: Balance
+      moment: BlockNumber
+    UnrewardedRelayersState:
+      unrewarded_relayer_entries: MessageNonce
+      messages_in_oldest_entry: MessageNonce
+      total_messages: MessageNonce
+    UsableBalance:
+      usableBalance: Balance
+    ValidatorPrefs: ValidatorPrefsWithBlocked
+definitions:
+  mapping: &mymapping
+    handlers:
+      - handler: handleCall
+        kind: substrate/CallHandler
+        filter:
+            module: utility
+            method: batchAll
+            success: true
+      - handler: handleCall
+        kind: substrate/CallHandler
+        filter:
+            module: utility
+            method: batch
+            success: true
+      - handler: handleCall
+        kind: substrate/CallHandler
+        filter:
+            module: system
+            method: remark
+            success: true
+      - handler: handleRemark
+        kind: substrate/CallHandler
+        filter:
+            module: utility
+            method: batchAll
+            success: true
+      - handler: handleRemark
+        kind: substrate/CallHandler
+        filter:
+            module: utility
+            method: batch
+            success: true
+      - handler: handleRemark
+        kind: substrate/CallHandler
+        filter:
+            module: system
+            method: remark
+            success: true  
+dataSources:
+  - name: main
+    kind: substrate/Runtime
+    startBlock: 1100000
+    mapping: *mymapping # can reuse or change
