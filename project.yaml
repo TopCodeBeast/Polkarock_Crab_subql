@@ -389,30 +389,6 @@ network:
     UsableBalance:
       usableBalance: Balance
     ValidatorPrefs: ValidatorPrefsWithBlocked
-  typesBundle:
-    spec:
-      Darwinia:
-        types:
-          - minmax:
-              - 42
-              - 43
-            types:
-              AccountInfo: AccountInfoWithTripleRefCount
-              AccountInfoWithTripleRefCount:
-                consumers: RefCount
-                data: AccountData
-                nonce: Index
-                providers: RefCount
-          - minmax:
-              - 43
-            types:
-              AccountInfo: AccountInfoWithTripleRefCount
-              AccountInfoWithTripleRefCount:
-                consumers: RefCount
-                data: AccountData
-                nonce: Index
-                providers: RefCount
-                sufficients: RefCount
 dataSources:
   - name: main
     kind: substrate/Runtime
