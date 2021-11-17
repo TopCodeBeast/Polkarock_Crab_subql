@@ -389,6 +389,69 @@ network:
     UsableBalance:
       usableBalance: Balance
     ValidatorPrefs: ValidatorPrefsWithBlocked
+  typesBundle:
+    spec:
+      Darwinia:
+        types:
+          - minmax:
+              - 42
+              - 43
+            types:
+              AccountInfo: AccountInfoWithTripleRefCount
+              AccountInfoWithTripleRefCount:
+                consumers: RefCount
+                data: AccountData
+                nonce: Index
+                providers: RefCount
+          - minmax:
+              - 43
+            types:
+              AccountInfo: AccountInfoWithTripleRefCount
+              AccountInfoWithTripleRefCount:
+                consumers: RefCount
+                data: AccountData
+                nonce: Index
+                providers: RefCount
+                sufficients: RefCount
+definitions:
+  mapping: &mymapping
+    handlers:
+      - handler: handleCall
+        kind: substrate/CallHandler
+        filter:
+            module: utility
+            method: batchAll
+            success: true
+      - handler: handleCall
+        kind: substrate/CallHandler
+        filter:
+            module: utility
+            method: batch
+            success: true
+      - handler: handleCall
+        kind: substrate/CallHandler
+        filter:
+            module: system
+            method: remark
+            success: true
+      - handler: handleRemark
+        kind: substrate/CallHandler
+        filter:
+            module: utility
+            method: batchAll
+            success: true
+      - handler: handleRemark
+        kind: substrate/CallHandler
+        filter:
+            module: utility
+            method: batch
+            success: true
+      - handler: handleRemark
+        kind: substrate/CallHandler
+        filter:
+            module: system
+            method: remark
+            success: true  
 dataSources:
   - name: main
     kind: substrate/Runtime
